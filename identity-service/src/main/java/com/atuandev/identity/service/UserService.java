@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.List;
 
 import com.atuandev.identity.constant.PredefinedRole;
+import com.atuandev.identity.mapper.ProfileMapper;
+import com.atuandev.identity.repository.httpclient.ProfileClient;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -34,6 +36,8 @@ public class UserService {
     UserRepository userRepository;
     RoleRepository roleRepository;
     UserMapper userMapper;
+    ProfileMapper profileMapper;
+    ProfileClient profileClient;
     PasswordEncoder passwordEncoder;
 
     public UserResponse createUser(UserCreationRequest request) {
@@ -50,6 +54,10 @@ public class UserService {
         } catch (DataIntegrityViolationException e) {
             throw new AppException(ErrorCode.USER_EXISTS);
         }
+
+        var profileRequest = profileMapper.toProfileCreationRequest(request);
+        profileRequest.setUserId(user.getId());
+        profileClient.createProfile(profileRequest);
 
         return userMapper.toUserResponse(user);
     }

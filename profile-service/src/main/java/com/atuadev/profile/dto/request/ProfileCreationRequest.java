@@ -14,6 +14,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
 public class ProfileCreationRequest {
+    String userId;
     String firstName;
     String lastName;
     LocalDate dob;

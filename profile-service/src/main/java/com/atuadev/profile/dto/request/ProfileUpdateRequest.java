@@ -14,6 +14,8 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
 public class ProfileUpdateRequest {
+    String id;
+    String userId;
     String firstName;
     String lastName;
     LocalDate dob;

@@ -1,7 +1,4 @@
-package com.atuandev.identity.dto.response;
-
-import java.time.LocalDate;
-import java.util.Set;
+package com.atuandev.identity.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,13 +6,17 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
+import java.time.LocalDate;
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
-public class UserResponse {
-    String id;
-    String username;
-    Set<RoleResponse> roles;
+public class ProfileCreationRequest {
+    String userId;
+    String firstName;
+    String lastName;
+    LocalDate dob;
+    String city;
 }
