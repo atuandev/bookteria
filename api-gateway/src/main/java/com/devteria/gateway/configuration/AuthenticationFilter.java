@@ -1,6 +1,8 @@
 package com.devteria.gateway.configuration;
 
 import com.devteria.gateway.dto.ApiResponse;
+import com.devteria.gateway.exception.AppException;
+import com.devteria.gateway.exception.ErrorCode;
 import com.devteria.gateway.service.IdentityService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -86,7 +88,7 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
         try {
             body = objectMapper.writeValueAsString(apiResponse);
         } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+            throw new AppException(ErrorCode.UNAUTHENTICATED);
         }
 
         response.setStatusCode(HttpStatus.UNAUTHORIZED);

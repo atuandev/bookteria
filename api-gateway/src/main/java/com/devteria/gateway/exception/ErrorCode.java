@@ -1,4 +1,4 @@
-package com.atuadev.profile.exception;
+package com.devteria.gateway.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,7 +19,6 @@ public enum ErrorCode {
     UNAUTHORIZED(1007, "You do not have permission", HttpStatus.FORBIDDEN),
     ROLE_NOT_FOUND(1008, "Role not found", HttpStatus.NOT_FOUND),
     INVALID_DOB(1009, "Your age must be at least {min}", HttpStatus.BAD_REQUEST),
-    PROFILE_NOT_FOUND(1010, "Profile not found", HttpStatus.NOT_FOUND),
     ;
 
     int code;
