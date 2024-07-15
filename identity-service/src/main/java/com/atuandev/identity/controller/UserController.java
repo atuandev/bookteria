@@ -23,7 +23,7 @@ import lombok.experimental.FieldDefaults;
 public class UserController {
     UserService userService;
 
-    @PostMapping
+    @PostMapping("/new")
     ApiResponse<UserResponse> createUser(@RequestBody @Valid UserCreationRequest request) {
         return ApiResponse.<UserResponse>builder()
                 .result(userService.createUser(request))

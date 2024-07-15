@@ -1,23 +1,14 @@
-package com.atuandev.identity.exception;
+package com.atuadev.profile.exception;
 
-import java.util.Map;
-import java.util.Objects;
-
-import jakarta.validation.ConstraintViolation;
-
+import com.atuadev.profile.dto.ApiResponse;
+import com.atuadev.profile.dto.response.ErrorResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
-import org.springframework.web.ErrorResponse;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.atuandev.identity.dto.ApiResponse;
-
 @ControllerAdvice
 public class GlobalExceptionHandler {
-
-    private static final String MIN_ATTRIBUTE = "min";
 
     @ExceptionHandler(value = AppException.class)
     ResponseEntity<ApiResponse<ErrorResponse>> handleAppException(AppException e) {
@@ -50,29 +41,5 @@ public class GlobalExceptionHandler {
                         .code(errorCode.getCode())
                         .message(errorCode.getMessage())
                         .build());
-    }
-
-    @ExceptionHandler(value = MethodArgumentNotValidException.class)
-    ResponseEntity<ApiResponse<ErrorResponse>> handleValidation(MethodArgumentNotValidException e) {
-        String enumKey = Objects.requireNonNull(e.getFieldError()).getDefaultMessage();
-        ErrorCode errorCode = ErrorCode.valueOf(enumKey);
-
-        var constraintViolation = e.getBindingResult().getAllErrors().getFirst().unwrap(ConstraintViolation.class);
-        var attributes = constraintViolation.getConstraintDescriptor().getAttributes();
-
-        return ResponseEntity.badRequest()
-                .body(ApiResponse.<ErrorResponse>builder()
-                        .code(errorCode.getCode())
-                        .message(
-                                Objects.nonNull(attributes)
-                                        ? mapAttribute(errorCode.getMessage(), attributes)
-                                        : errorCode.getMessage())
-                        .build());
-    }
-
-    private String mapAttribute(String message, Map<String, Object> attributes) {
-        String minValue = attributes.get(MIN_ATTRIBUTE).toString();
-
-        return message.replace("{" + MIN_ATTRIBUTE + "}", minValue);
     }
 }

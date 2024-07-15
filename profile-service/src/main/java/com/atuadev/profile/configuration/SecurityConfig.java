@@ -1,4 +1,4 @@
-package com.atuandev.identity.configuration;
+package com.atuadev.profile.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,9 +21,7 @@ import org.springframework.web.filter.CorsFilter;
 @EnableMethodSecurity
 public class SecurityConfig {
 
-    private static final String[] PUBLIC_ENDPOINTS = {
-            "/users/new", "/auth/token", "/auth/introspect", "/auth/logout", "/auth/refresh"
-    };
+    private static final String[] PUBLIC_ENDPOINTS = {};
 
     private final CustomJwtDecoder customJwtDecoder;
 
@@ -73,10 +71,5 @@ public class SecurityConfig {
         jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(jwtGrantedAuthoritiesConverter);
 
         return jwtAuthenticationConverter;
-    }
-
-    @Bean
-    PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(10);
     }
 }

@@ -14,10 +14,7 @@ import com.atuandev.identity.entity.User;
 @Mapper(componentModel = "spring")
 public interface UserMapper {
     User toUser(UserCreationRequest request);
-
     UserResponse toUserResponse(User user);
-
-    List<UserResponse> toUserResponseList(List<User> users);
 
     @Mapping(target = "roles", ignore = true)
     void updateUser(@MappingTarget User user, UserUpdateRequest request);

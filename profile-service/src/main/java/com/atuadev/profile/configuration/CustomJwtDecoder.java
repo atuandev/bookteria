@@ -1,4 +1,4 @@
-package com.atuandev.identity.configuration;
+package com.atuadev.profile.configuration;
 
 import com.nimbusds.jwt.SignedJWT;
 import org.springframework.security.oauth2.jwt.Jwt;

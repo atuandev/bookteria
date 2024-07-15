@@ -64,7 +64,7 @@ public class UserService {
 
     @PreAuthorize("hasRole('ADMIN')")
     public List<UserResponse> getAllUsers() {
-        return userMapper.toUserResponseList(userRepository.findAll());
+        return userRepository.findAll().stream().map(userMapper::toUserResponse).toList();
     }
 
     @PreAuthorize("hasRole('ADMIN')")

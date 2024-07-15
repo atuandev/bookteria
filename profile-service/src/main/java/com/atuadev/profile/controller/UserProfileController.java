@@ -1,5 +1,6 @@
 package com.atuadev.profile.controller;
 
+import com.atuadev.profile.dto.ApiResponse;
 import com.atuadev.profile.dto.response.UserProfileResponse;
 import com.atuadev.profile.service.UserProfileService;
 import lombok.RequiredArgsConstructor;
@@ -17,12 +18,16 @@ public class UserProfileController {
     UserProfileService userProfileService;
 
     @GetMapping("/users/{profileId}")
-    UserProfileResponse getUserProfile(@PathVariable String profileId) {
-        return userProfileService.getProfile(profileId);
+    ApiResponse<UserProfileResponse> getUserProfile(@PathVariable String profileId) {
+        return ApiResponse.<UserProfileResponse>builder()
+                .result(userProfileService.getProfile(profileId))
+                .build();
     }
 
     @GetMapping("/users")
-    List<UserProfileResponse> getAllUserProfiles() {
-        return userProfileService.getAllProfiles();
+    ApiResponse<List<UserProfileResponse>> getAllUserProfiles() {
+        return ApiResponse.<List<UserProfileResponse>>builder()
+                .result(userProfileService.getAllProfiles())
+                .build();
     }
 }
